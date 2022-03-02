@@ -39,11 +39,11 @@
 	"discordName": "BoredManPlays",
 	"username": "BoredManPlays"
 }
-```json
+```
 
 `https://yourserveripchange.me:port/discord/id/324504908013240330`
 
-```
+```json
 {
 	"discordId": "324504908013240330",
 	"error": false,
