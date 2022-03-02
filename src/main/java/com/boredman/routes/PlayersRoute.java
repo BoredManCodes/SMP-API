@@ -1,4 +1,4 @@
-package com.tristansmp.routes;
+package com.boredman.routes;
 
 import express.Express;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.User;
@@ -9,9 +9,6 @@ import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 
 import java.util.UUID;
-
-import static com.gmail.nossr50.api.ExperienceAPI.getLevelOffline;
-import static com.gmail.nossr50.api.ExperienceAPI.getPowerLevelOffline;
 import static github.scarsz.discordsrv.DiscordSRV.getPlugin;
 import static org.bukkit.Bukkit.*;
 
@@ -34,7 +31,7 @@ public class PlayersRoute {
                 User user = DiscordUtil.getJda().getUserById(discordId);
                 if (user == null) {
                     obj.put("error", true);
-                    obj.put("message", "Couldn't find Discord User by ID. Maybe they left the tsmp server?");
+                    obj.put("message", "Couldn't find Discord User by ID. Maybe they left the server?");
                     res.send(obj.toJSONString());
                     return;
                 } else {
@@ -47,43 +44,6 @@ public class PlayersRoute {
                     res.send(obj.toJSONString());
                     return;
                 }
-            }
-        });
-
-        // McMMO //
-
-        app.get("/players/uuid/:uuid/mcmmo", (req, res) -> {
-            final UUID uuid = UUID.fromString(req.getParams().get("uuid"));
-
-            try {
-                final JSONObject obj = new JSONObject();
-
-                // convert uuid to player
-                final OfflinePlayer player = getOfflinePlayer(uuid);
-                final Number powerLevel = getPowerLevelOffline(player.getUniqueId());
-
-                obj.put("error", false);
-                obj.put("powerLevel", powerLevel);
-                obj.put("excavation", getLevelOffline(uuid, "Excavation"));
-                obj.put("fishing", getLevelOffline(uuid, "Fishing"));
-                obj.put("Herbalism", getLevelOffline(uuid, "Herbalism"));
-                obj.put("mining", getLevelOffline(uuid, "Mining"));
-                obj.put("woodcutting", getLevelOffline(uuid, "Woodcutting"));
-                obj.put("archery", getLevelOffline(uuid, "Archery"));
-                obj.put("axes", getLevelOffline(uuid, "Axes"));
-                obj.put("swords", getLevelOffline(uuid, "Swords"));
-                obj.put("taming", getLevelOffline(uuid, "Taming"));
-                obj.put("unarmed", getLevelOffline(uuid, "Unarmed"));
-                obj.put("acrobatics", getLevelOffline(uuid, "Acrobatics"));
-                obj.put("alchemy", getLevelOffline(uuid, "Alchemy"));
-                obj.put("repair", getLevelOffline(uuid, "Repair"));
-
-                res.send(obj.toJSONString());
-            } catch (Exception e) {
-                final JSONObject obj = new JSONObject();
-                obj.put("error", true);
-                obj.put("message", e.getMessage());
-                res.send(obj.toJSONString());
             }
         });
 

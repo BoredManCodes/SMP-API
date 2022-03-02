@@ -6,7 +6,6 @@ plugins {
     java
     `maven-publish`
 }
-
 repositories {
     mavenLocal()
     maven {
@@ -41,16 +40,15 @@ repositories {
 dependencies {
     implementation("net.essentialsx:EssentialsX:2.19.2")
     implementation("io.vacco.java-express:java-express:0.2.1")
-    compileOnly("com.gmail.nossr50.mcMMO:mcMMO:2.1.205")
     compileOnly("com.discordsrv:discordsrv:1.21.1")
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
 }
 
-group = "com.tristansmp"
-version = "API"
-description = "TSMP Api"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
-
+group = "com.boredman"
+version = "1"
+description = "SMP-API"
+java.sourceCompatibility = JavaVersion.VERSION_17
+java.targetCompatibility = JavaVersion.VERSION_17
 publishing {
     publications.create<MavenPublication>("maven") {
         from(components["java"])

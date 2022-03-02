@@ -1,7 +1,6 @@
-package com.tristansmp;
+package com.boredman;
 
-import com.google.gson.JsonArray;
-import com.tristansmp.misc.EHandler;
+import com.boredman.misc.EHandler;
 import express.Express;
 import org.bukkit.plugin.java.JavaPlugin;
 

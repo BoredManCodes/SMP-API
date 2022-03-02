@@ -1,4 +1,4 @@
-package com.tristansmp.routes;
+package com.boredman.routes;
 
 import express.Express;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.User;
