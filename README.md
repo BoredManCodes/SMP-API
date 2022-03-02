@@ -1,25 +1,34 @@
-# An API to expose player information for Janet.
 
+# An API to expose player information for Janet (or other discord bots).
+
+### My coding time:
+[![wakatime](https://wakatime.com/badge/user/d835e453-8200-4955-8277-80c4e9e3809b/project/2093c49e-2b5c-4aa2-91ad-c86aeef24eff.svg)](https://wakatime.com/badge/user/d835e453-8200-4955-8277-80c4e9e3809b/project/2093c49e-2b5c-4aa2-91ad-c86aeef24eff)
 # Examples
 
-`https://yourserveripchange.me:port/players/BoredManPlays/stats` (only works when player is online, will fix soon)
+`https://yourserveripchange.me:port/players/BoredManPlays` (only works when player is online, will fix soon)
 
-```
+```json
 {
-   "kills":40892,
-   "world":"world",
-   "level":9,
-   "health":20,
-   "jumps":266945,
-   "experience":0.19999996,
-   "uuid":"957c3421-5c2c-48aa-810d-2bd895804940",
-   "food":20,
-   "deaths":647,
-   "username":"BoredManPlays"
+  "kills":"1",
+  "bed":"x=189.5,y=58.5625,z=-25.5",
+  "address":"127.0.0.1",
+  "death":"5801",
+  "level":"0",
+  "lastJoined":1646231639815,
+  "health":"20.0",
+  "jumps":"167",
+  "experience":"0.0",
+  "uuid":"957c3421-5c2c-48aa-810d-2bd895804940",
+  "gamemode":"CREATIVE",
+  "food":"20",
+  "world":"world",
+  "time":"8200",
+  "deaths":"3",
+  "username":"BoredManPlays"
 }
 ```
 
-`https://yourserveripchange.me:port/players/BoredManPlays/discord`
+`https://yourserveripchange.me:port/discord/name/BoredManPlays`
 
 ```
 {
@@ -32,7 +41,7 @@
 }
 ```
 
-`https://yourserveripchange.me:port/discord/users/id/324504908013240330/player`
+`https://yourserveripchange.me:port/discord/id/324504908013240330`
 
 ```
 {

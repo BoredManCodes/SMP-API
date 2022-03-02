@@ -1,6 +1,6 @@
-package com.boredman;
+package net.boredman;
 
-import com.boredman.misc.EHandler;
+import com.google.gson.JsonArray;
 import express.Express;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,7 +14,7 @@ public final class api extends JavaPlugin {
     @Override
     public void onEnable() {
     start();
-    getServer().getPluginManager().registerEvents(new EHandler(), this);
+
     }
 
     @Override

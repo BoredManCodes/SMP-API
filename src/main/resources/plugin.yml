@@ -1,11 +1,10 @@
-name: TSMPapi
+name: SMP-API
 version: '${project.version}'
-main: com.tristansmp.api
+main: net.boredman.api
 api-version: 1.18
-prefix: tsmpapi
-authors: [ twisttaan ]
+prefix: SMP-API
+authors: [ BoredManCodes, twisttaan ]
 softdepend:
   - 'DiscordSRV'
-  - 'EssentialsX'
-description: TristanSMP API
-website: https://tristansmp.com
+description: A SMP API for exposing player information for Discord bots to use
+website: https://boredman.net

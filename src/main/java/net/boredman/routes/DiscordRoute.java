@@ -1,23 +1,22 @@
-package com.boredman.routes;
+package net.boredman.routes;
 
 import express.Express;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.User;
 import github.scarsz.discordsrv.util.DiscordUtil;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Statistic;
-import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 
 import java.util.UUID;
-import static github.scarsz.discordsrv.DiscordSRV.getPlugin;
-import static org.bukkit.Bukkit.*;
 
-public class PlayersRoute {
-    public PlayersRoute(Express app) {
+import static github.scarsz.discordsrv.DiscordSRV.getPlugin;
+import static org.bukkit.Bukkit.getOfflinePlayer;
+
+public class DiscordRoute {
+    public DiscordRoute(Express app) {
 
         // Linked Discord //
 
-        app.get("/players/username/:username/discord", (req, res) -> {
+        app.get("/discord/name/:username", (req, res) -> {
             final String username = req.getParams().get("username");
             final OfflinePlayer player = getOfflinePlayer(username);
             final String discordId = getPlugin().getAccountLinkManager().getDiscordId(player.getUniqueId());
@@ -47,54 +46,31 @@ public class PlayersRoute {
             }
         });
 
-        // Online Player Stats //
+        // Linked Minecraft Account //
 
-        app.get("/players/username/:username/stats", (req, res) -> {
-            final String username = req.getParams().get("username");
+        app.get("/discord/id/:discordId", (req, res) -> {
+            final String discordId = req.getParams().get("discordId");
+            final User user = DiscordUtil.getJda().getUserById(discordId);
             final JSONObject obj = new JSONObject();
-            final Player player = getPlayer(username);
-            
-            try {
-                // Player Username
-                obj.put("username", player.getName());
-
-                // Player UUID
-                obj.put("uuid", player.getUniqueId().toString());
-
-                // Player Health
-                obj.put("health", player.getHealth());
-
-                // Player Food
-                obj.put("food", player.getFoodLevel());
-
-                // Player World
-                obj.put("world", player.getWorld().getName());
-
-                // Player Experience
-                obj.put("experience", player.getExp());
-
-                // Player Level
-                obj.put("level", player.getLevel());
-
-                // Player Deaths
-                obj.put("deaths", player.getStatistic(org.bukkit.Statistic.DEATHS));
-
-                // Player Kills
-                obj.put("kills", player.getStatistic(Statistic.MOB_KILLS));
-
-                // Player Jumped
-                obj.put("jumps", player.getStatistic(Statistic.JUMP));
-
+            if (user == null) {
+                obj.put("error", true);
+                obj.put("message", "Couldn't find Discord User by ID. Maybe they left the server?");
                 res.send(obj.toJSONString());
-            } catch (Exception e) {
-                if (e.getMessage().contains("Cannot invoke \"org.bukkit.entity.Player.getName()\" because \"player\" is null")) {
+            } else {
+                final UUID uuid = UUID.fromString(getPlugin().getAccountLinkManager().getUuid(user.getId()).toString());
+                final OfflinePlayer player = getOfflinePlayer(uuid);
+                if (player == null) {
                     obj.put("error", true);
-                    obj.put("message", "Player not online, or not found");
+                    obj.put("message", "Couldn't find player by UUID. Maybe they left the server?");
                     res.send(obj.toJSONString());
- 
                 } else {
-                    getLogger().info("Error: " + e.getMessage());
-                    res.send("Error: " + e.getMessage());
+                    obj.put("error", false);
+                    obj.put("uuid", uuid.toString());
+                    obj.put("username", player.getName());
+                    obj.put("discordId", discordId);
+                    obj.put("discordTag", user.getAsTag());
+                    obj.put("discordName", user.getName());
+                    res.send(obj.toJSONString());
                 }
             }
         });
