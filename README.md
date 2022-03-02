@@ -1,7 +1,7 @@
 
 # An API to expose player information for Janet (or other discord bots).
 
-### My coding time:
+### Coding time:
 [![wakatime](https://wakatime.com/badge/user/d835e453-8200-4955-8277-80c4e9e3809b/project/2093c49e-2b5c-4aa2-91ad-c86aeef24eff.svg)](https://wakatime.com/badge/user/d835e453-8200-4955-8277-80c4e9e3809b/project/2093c49e-2b5c-4aa2-91ad-c86aeef24eff)
 # Examples
 
@@ -30,7 +30,7 @@
 
 `https://yourserveripchange.me:port/discord/name/BoredManPlays`
 
-```
+```json
 {
 	"discordId": "324504908013240330",
 	"error": false,
@@ -39,7 +39,7 @@
 	"discordName": "BoredManPlays",
 	"username": "BoredManPlays"
 }
-```
+```json
 
 `https://yourserveripchange.me:port/discord/id/324504908013240330`
 
