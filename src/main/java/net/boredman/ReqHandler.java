@@ -7,7 +7,7 @@ import org.bukkit.plugin.Plugin;
 public class ReqHandler {
 
     public ReqHandler(Express app) {
-        int port = api.getConfig().getInt("port");
+        int port = API.getPlugin(API.class).getConfig().getInt("port");
         new net.boredman.routes.PlayersRoute(app);
         new net.boredman.routes.DiscordRoute(app);
         app.get("/", (req, res) -> {

@@ -1,13 +1,12 @@
 package net.boredman;
 
-import com.google.gson.JsonArray;
 import express.Express;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class api extends JavaPlugin {
-    private static api plugin;
+public class API extends JavaPlugin implements Listener {
+    private static API plugin;
     final FileConfiguration config = getConfig();
 
     public static Express getApp() {
@@ -22,6 +21,14 @@ public class api extends JavaPlugin {
         saveConfig();
         start();
         plugin = this;
+        if (config.getString("secret").equals("CHANGE THIS!")) {
+            getLogger().warning("----------------------");
+            getLogger().severe("You MUST change the secret in the config.yml for this plugin to work. " +
+                    "This prevents exposing player IP addresses to the world");
+            getLogger().warning("----------------------");
+
+            this.getPluginLoader().disablePlugin(this);
+        }
     }
 
 
