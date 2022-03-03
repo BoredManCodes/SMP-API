@@ -96,6 +96,19 @@ Log output on failed authentication:
 [SMP-API] A request to access Minecraft info from 206.189.205.251 was rejected 
 as they did not pass the correct secret in the header
 ```
+
+# Configuration
+The config is pretty simple. This is the default:
+```yml
+port: 25567
+secret: CHANGE THIS!
+```
+| key    | definition                                                             |
+|--------|------------------------------------------------------------------------|
+| port   | The port to host the API on.<br/> **Do not use your Minecraft server port** |
+| secret | The "password" that allows access to the API                           |
+Note, the plugin will not run unless you change the secret. This is explained above.
+
 # Legal Mumbo Jumbo
-The idea and base code for this project came from [TristanSMP](https://github.com/twisttaan/TristanSMPAPI).
+The idea and base code for this project came from [TristanSMPAPI](https://github.com/twisttaan/TristanSMPAPI).
 It has been extensively added to by myself with much technical help from the developers of [DiscordSRV](https://github.com/DiscordSRV/DiscordSRV/) 
