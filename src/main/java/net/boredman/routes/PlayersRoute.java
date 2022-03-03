@@ -3,6 +3,7 @@ package net.boredman.routes;
 import express.Express;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.User;
 import github.scarsz.discordsrv.util.DiscordUtil;
+import net.boredman.api;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
@@ -17,8 +18,8 @@ public class PlayersRoute {
     public PlayersRoute(Express app) {
 
         // Online Player Stats //
-
-        app.get("/players/:username", (req, res) -> {
+        String secret = api.getPlugin(api.class).getConfig().getString("secret");
+        app.get(secret + "/players/:username", (req, res) -> {
             String username = req.getParams().get("username");
             JSONObject obj = new JSONObject();
             Player player = getPlayer(username);

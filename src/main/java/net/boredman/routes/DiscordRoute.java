@@ -3,6 +3,7 @@ package net.boredman.routes;
 import express.Express;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.User;
 import github.scarsz.discordsrv.util.DiscordUtil;
+import net.boredman.api;
 import org.bukkit.OfflinePlayer;
 import org.json.simple.JSONObject;
 
@@ -15,8 +16,8 @@ public class DiscordRoute {
     public DiscordRoute(Express app) {
 
         // Linked Discord //
-
-        app.get("/discord/name/:username", (req, res) -> {
+        String secret = api.getPlugin(api.class).getConfig().getString("secret");
+        app.get(secret + "/discord/name/:username", (req, res) -> {
             final String username = req.getParams().get("username");
             final OfflinePlayer player = getOfflinePlayer(username);
             final String discordId = getPlugin().getAccountLinkManager().getDiscordId(player.getUniqueId());
@@ -40,7 +41,7 @@ public class DiscordRoute {
                     obj.put("discordId", discordId);
                     obj.put("discordTag", user.getAsTag());
                     obj.put("discordName", user.getName());
-                    res.send(obj.toJSONString());
+                    res.send(obj.toJSONStrgging());
                     return;
                 }
             }
@@ -48,7 +49,7 @@ public class DiscordRoute {
 
         // Linked Minecraft Account //
 
-        app.get("/discord/id/:discordId", (req, res) -> {
+        app.get(secret + "/discord/id/:discordId", (req, res) -> {
             final String discordId = req.getParams().get("discordId");
             final User user = DiscordUtil.getJda().getUserById(discordId);
             final JSONObject obj = new JSONObject();
