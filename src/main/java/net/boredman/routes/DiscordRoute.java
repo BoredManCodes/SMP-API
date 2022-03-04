@@ -1,6 +1,7 @@
 package net.boredman.routes;
 
 import express.Express;
+import express.utils.Status;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.User;
 import github.scarsz.discordsrv.util.DiscordUtil;
 import net.boredman.API;
@@ -15,14 +16,28 @@ import static org.bukkit.Bukkit.getOfflinePlayer;
 public class DiscordRoute {
     public DiscordRoute(Express app) {
 
-        // Linked Discord //
+        // Read config
+        boolean debug = API.getPlugin(API.class).getConfig().getBoolean("debug");
         String secret = API.getPlugin(API.class).getConfig().getString("secret");
+
+        // Lookup Discord via username
         app.get("/discord/name/:username", (req, res) -> {
-            if (secret.equals(req.getHeader("secret").get(0))) {
-                final String username = req.getParams().get("username");
-                final OfflinePlayer player = getOfflinePlayer(username);
-                final String discordId = getPlugin().getAccountLinkManager().getDiscordId(player.getUniqueId());
-                final JSONObject obj = new JSONObject();
+            final String username = req.getParams().get("username");
+            final OfflinePlayer player = getOfflinePlayer(username);
+            final String discordId = getPlugin().getAccountLinkManager().getDiscordId(player.getUniqueId());
+            final JSONObject obj = new JSONObject();
+            if (debug) {
+                API.getPlugin(API.class).getLogger().info("A request was made to access " +
+                        req.getParams().get("username") + "'s Discord data");
+            }
+            if (!secret.equals(req.getHeader("secret").get(0))) {
+                obj.put("error", true);
+                obj.put("message", "You are not authorised to access this resource");
+                res.send(obj.toJSONString());
+                API.getPlugin(API.class).getLogger().warning("A request to access Discord info from " + req.getIp() +
+                        " was rejected as they did not pass the correct secret in the header");
+                return;
+            } else {
                 if (discordId == null) {
                     obj.put("error", true);
                     obj.put("message", "Player not linked to discord");
@@ -46,52 +61,51 @@ public class DiscordRoute {
                         return;
                     }
                 }
-        } else {
-                final JSONObject obj = new JSONObject();
+            }
+        });
+
+        // Lookup Discord via ID
+        app.get("/discord/id/:id", (req, res) -> {
+            final String username = req.getParams().get("id");
+            final OfflinePlayer player = getOfflinePlayer(username);
+            final String discordId = getPlugin().getAccountLinkManager().getDiscordId(player.getUniqueId());
+            final JSONObject obj = new JSONObject();
+            if (debug) {
+                API.getPlugin(API.class).getLogger().info("A request was made to access " +
+                        req.getParams().get("id") + "'s Discord data");
+            }
+            if (!secret.equals(req.getHeader("secret").get(0))) {
                 obj.put("error", true);
                 obj.put("message", "You are not authorised to access this resource");
                 res.send(obj.toJSONString());
                 API.getPlugin(API.class).getLogger().warning("A request to access Discord info from " + req.getIp() +
                         " was rejected as they did not pass the correct secret in the header");
-            }
-        });
-
-        // Linked Minecraft Account //
-
-        app.get(secret + "/discord/id/:discordId", (req, res) -> {
-            if (secret.equals(req.getHeader("secret").get(0))) {
-                final String discordId = req.getParams().get("discordId");
-                final User user = DiscordUtil.getJda().getUserById(discordId);
-                final JSONObject obj = new JSONObject();
-                if (user == null) {
+            } else {
+                if (discordId == null) {
                     obj.put("error", true);
-                    obj.put("message", "Couldn't find Discord User by ID. Maybe they left the server?");
+                    obj.put("message", "Player not linked to discord");
                     res.send(obj.toJSONString());
+                    return;
                 } else {
-                    final UUID uuid = UUID.fromString(getPlugin().getAccountLinkManager().getUuid(user.getId()).toString());
-                    final OfflinePlayer player = getOfflinePlayer(uuid);
-                    if (player == null) {
+                    User user = DiscordUtil.getJda().getUserById(discordId);
+                    if (user == null) {
                         obj.put("error", true);
-                        obj.put("message", "Couldn't find player by UUID. Maybe they left the server?");
+                        obj.put("message", "Couldn't find Discord User by ID. Maybe they left the server?");
                         res.send(obj.toJSONString());
+                        return;
                     } else {
                         obj.put("error", false);
-                        obj.put("uuid", uuid.toString());
-                        obj.put("username", player.getName());
+                        obj.put("username", username);
+                        obj.put("uuid", player.getUniqueId().toString());
                         obj.put("discordId", discordId);
                         obj.put("discordTag", user.getAsTag());
                         obj.put("discordName", user.getName());
                         res.send(obj.toJSONString());
+                        return;
                     }
                 }
-            } else {
-                final JSONObject obj = new JSONObject();
-                obj.put("error", true);
-                obj.put("message", "You are not authorised to access this resource");
-                res.send(obj.toJSONString());
-                API.getPlugin(API.class).getLogger().warning("A request to access Discord info from " + req.getIp() +
-                        " was rejected as they did not pass the correct secret in the header");
             }
-            });
+        });
+
     }
 }

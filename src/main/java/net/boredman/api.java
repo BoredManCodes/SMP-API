@@ -1,6 +1,7 @@
 package net.boredman;
 
 import express.Express;
+import net.boredman.events.QuitEvent;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,20 +18,20 @@ public class API extends JavaPlugin implements Listener {
     public void onEnable() {
         config.addDefault("port", 25567);
         config.addDefault("secret", "CHANGE THIS!");
+        config.addDefault("debug", false);
         config.options().copyDefaults(true);
         saveConfig();
         start();
         plugin = this;
         if (config.getString("secret").equals("CHANGE THIS!")) {
-            getLogger().warning("----------------------");
+            getLogger().warning("--------------------------------------------");
             getLogger().severe("You MUST change the secret in the config.yml for this plugin to work. " +
                     "This prevents exposing player IP addresses to the world");
-            getLogger().warning("----------------------");
-
+            getLogger().warning("--------------------------------------------");
             this.getPluginLoader().disablePlugin(this);
         }
+        this.getServer().getPluginManager().registerEvents(new QuitEvent(), this);
     }
-
 
     @Override
     public void onDisable() {

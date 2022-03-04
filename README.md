@@ -8,7 +8,7 @@ All API calls must include a `secret` header the value of which is set in the co
 
 The plugin will refuse to load if you don't set a secret to prevent leaking player IP's and base locations.
 <br><br><br>
-`https://yourserveripchange.me:port/players/BoredManPlays` Lookup some useful player stats (only works when player is online, will fix soon):
+`https://yourserveripchange.me:port/players/BoredManPlays` Lookup some useful player stats:
 
 ```json
 {
@@ -25,6 +25,8 @@ The plugin will refuse to load if you don't set a secret to prevent leaking play
     "gamemode":"CREATIVE",
     "food":"20",
     "world":"world",
+    "online":false,
+    "location":"x=192.5,y=58.5625,z=-25.5",
     "time":"8200",
     "deaths":"3",
     "username":"BoredManPlays"
@@ -45,6 +47,8 @@ The plugin will refuse to load if you don't set a secret to prevent leaking play
 | gamemode   | The player's gamemode                                                  |
 | food       | The player's hunger from 0 - 20                                        |
 | world      | The world the player is currently in                                   |
+| online     | Whether the player is currently online or using cached playerdata      |
+| location   | The player's location at the time of the lookup                        |
 | time       | The amount of in game time the player has been online                  |
 | deaths     | The amount of times the player has died                                |
 | username   | The player's username                                                  |
