@@ -52,6 +52,7 @@ The plugin will refuse to load if you don't set a secret to prevent leaking play
 | time       | The amount of in game time the player has been online                  |
 | deaths     | The amount of times the player has died                                |
 | username   | The player's username                                                  |
+
 <br><br>
 `https://yourserveripchange.me:port/discord/name/BoredManPlays` Lookup linked Minecraft and Discord accounts using Discord username:
 
@@ -86,6 +87,7 @@ The plugin will refuse to load if you don't set a secret to prevent leaking play
 | discordTag  | The user's Discord name and discriminator |
 | discordName | The user's Discord name                   |
 | username    | The user's Minecraft player name          |
+
 <br><br>
 
 API call failed due to invalid secret header:
@@ -111,6 +113,7 @@ secret: CHANGE THIS!
 |--------|------------------------------------------------------------------------|
 | port   | The port to host the API on.<br/> **Do not use your Minecraft server port** |
 | secret | The "password" that allows access to the API                           |
+
 Note, the plugin will not run unless you change the secret. This is explained above.
 
 # Legal Mumbo Jumbo
