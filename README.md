@@ -55,7 +55,7 @@ The plugin will refuse to load if you don't set a secret to prevent leaking play
 
 <br><br>
 `https://yourserveripchange.me:port/discord/name/BoredManPlays` Lookup linked Minecraft and Discord accounts using Discord username:
-
+**Requires DiscordSRV**
 ```json
 {
     "discordId": "324504908013240330",
@@ -106,11 +106,13 @@ as they did not pass the correct secret in the header
 # Configuration
 The config is pretty simple. This is the default:
 ```yml
+debug: false
 port: 25567
 secret: CHANGE THIS!
 ```
 | key    | definition                                                             |
 |--------|------------------------------------------------------------------------|
+| debug  | Whether debug messages should be logged to console                     |
 | port   | The port to host the API on.<br/> **Do not use your Minecraft server port** |
 | secret | The "password" that allows access to the API                           |
 
