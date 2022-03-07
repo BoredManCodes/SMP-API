@@ -3,6 +3,16 @@
 
 ### Coding time:
 [![wakatime](https://wakatime.com/badge/user/d835e453-8200-4955-8277-80c4e9e3809b/project/2093c49e-2b5c-4aa2-91ad-c86aeef24eff.svg)](https://wakatime.com/badge/user/d835e453-8200-4955-8277-80c4e9e3809b/project/2093c49e-2b5c-4aa2-91ad-c86aeef24eff)
+
+# Support
+Prove you aren't a robot and get some help here:
+http://invite.boredmandiscord.workers.dev/
+
+## SpigotMC page:
+https://www.spigotmc.org/threads/smp-api.549051/
+
+
+
 # Available Endpoints
 All API calls must include a `secret` header the value of which is set in the config.yml.
 
