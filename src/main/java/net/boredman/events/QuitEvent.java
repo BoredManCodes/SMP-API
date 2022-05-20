@@ -61,7 +61,7 @@ public class QuitEvent implements Listener {
             address = String.valueOf(player.getAddress()).replace("/", "");
             arrOfAddress = address.split(":");
             obj.put((Object) "address", (Object) arrOfAddress[0]);
-            obj.put((Object) "lastJoined", (Object) player.getLastPlayed());
+            obj.put((Object) "lastJoined", (Object) System.currentTimeMillis());
             obj.put((Object) "online", (Object) false);
             location = player.getLocation().toString();
             arrOfLocation = location.split(",");
