@@ -44,6 +44,4 @@ public class API extends JavaPlugin implements Listener {
     }
 
     public static Express express = new Express();
-
-
 }
