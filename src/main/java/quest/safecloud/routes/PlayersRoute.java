@@ -1,9 +1,9 @@
-package quest.safecloud.routes;
+package net.boredman.routes;
 
 import express.Express;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.User;
 import github.scarsz.discordsrv.util.DiscordUtil;
-import quest.safecloud.API;
+import net.boredman.API;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
@@ -48,6 +48,8 @@ public class PlayersRoute {
                 String[] arrOfBed;
                 String location;
                 String[] arrOfLocation;
+                String address;
+                String[] arrOfAddress;
                 try {
                     obj.put((Object)"username", (Object)player.getName());
                     obj.put((Object)"uuid", (Object)player.getUniqueId().toString());
@@ -67,6 +69,9 @@ public class PlayersRoute {
                     }
                     obj.put((Object)"time", (Object)String.valueOf(player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20));
                     obj.put((Object)"death", (Object)String.valueOf(player.getStatistic(Statistic.TIME_SINCE_DEATH) / 20));
+                    address = String.valueOf(player.getAddress()).replace("/", "");
+                    arrOfAddress = address.split(":");
+                    obj.put((Object)"address", (Object)arrOfAddress[0]);
                     obj.put((Object)"lastJoined", (Object)player.getLastPlayed());
                     obj.put((Object) "online", (Object) true);
                     location = player.getLocation().toString();
