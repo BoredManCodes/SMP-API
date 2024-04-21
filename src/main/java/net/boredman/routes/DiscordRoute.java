@@ -30,26 +30,23 @@ public class DiscordRoute {
                 API.getPlugin(API.class).getLogger().info("A request was made to access " +
                         req.getParams().get("username") + "'s Discord data");
             }
-            if (!secret.equals(req.getHeader("secret").get(0))) {
+            if (secret!= null &&!secret.equals(req.getHeader("secret").get(0))) {
                 obj.put("error", true);
                 obj.put("message", "You are not authorised to access this resource");
                 res.send(obj.toJSONString());
                 API.getPlugin(API.class).getLogger().warning("A request to access Discord info from " + req.getIp() +
                         " was rejected as they did not pass the correct secret in the header");
-                return;
             } else {
                 if (discordId == null) {
                     obj.put("error", true);
                     obj.put("message", "Player not linked to discord");
                     res.send(obj.toJSONString());
-                    return;
                 } else {
                     User user = DiscordUtil.getJda().getUserById(discordId);
                     if (user == null) {
                         obj.put("error", true);
                         obj.put("message", "Couldn't find Discord User by ID. Maybe they left the server?");
                         res.send(obj.toJSONString());
-                        return;
                     } else {
                         obj.put("error", false);
                         obj.put("username", username);
@@ -58,7 +55,6 @@ public class DiscordRoute {
                         obj.put("discordTag", user.getAsTag());
                         obj.put("discordName", user.getName());
                         res.send(obj.toJSONString());
-                        return;
                     }
                 }
             }
@@ -74,7 +70,7 @@ public class DiscordRoute {
                 API.getPlugin(API.class).getLogger().info("A request was made to access " +
                         req.getParams().get("id") + "'s Discord data");
             }
-            if (!secret.equals(req.getHeader("secret").get(0))) {
+            if (secret!= null &&!secret.equals(req.getHeader("secret").get(0))) {
                 obj.put("error", true);
                 obj.put("message", "You are not authorised to access this resource");
                 res.send(obj.toJSONString());
@@ -85,14 +81,12 @@ public class DiscordRoute {
                     obj.put("error", true);
                     obj.put("message", "Player not linked to discord");
                     res.send(obj.toJSONString());
-                    return;
                 } else {
                     User user = DiscordUtil.getJda().getUserById(discordId);
                     if (user == null) {
                         obj.put("error", true);
                         obj.put("message", "Couldn't find Discord User by ID. Maybe they left the server?");
                         res.send(obj.toJSONString());
-                        return;
                     } else {
                         obj.put("error", false);
                         obj.put("username", username);
@@ -101,7 +95,6 @@ public class DiscordRoute {
                         obj.put("discordTag", user.getAsTag());
                         obj.put("discordName", user.getName());
                         res.send(obj.toJSONString());
-                        return;
                     }
                 }
             }
