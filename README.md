@@ -64,7 +64,7 @@ The plugin will refuse to load if you don't set a secret to prevent leaking play
 | username   | The player's username                                                  |
 
 <br><br>
-`https://yourserveripchange.me:port/discord/name/BoredManPlays` Lookup linked Minecraft and Discord accounts using Discord username:
+`https://yourserveripchange.me:port/minecraft/name/BoredManPlays` Lookup linked Minecraft and Discord accounts using Minecraft username:
 **Requires DiscordSRV**
 ```json
 {
