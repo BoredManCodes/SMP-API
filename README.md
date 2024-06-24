@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # An API to expose player information for Janet (or other discord bots).
 
@@ -131,3 +132,6 @@ Note, the plugin will not run unless you change the secret. This is explained ab
 # Legal Mumbo Jumbo
 The idea and base code for this project came from [TristanSMPAPI](https://github.com/twisttaan/TristanSMPAPI).
 It has been extensively added to by myself with much technical help from the developers of [DiscordSRV](https://github.com/DiscordSRV/DiscordSRV/) 
+=======
+A remake of BoredManCodes' SMP-API to fit my needs.
+>>>>>>> 5b19083 (file add)

@@ -1,10 +1,10 @@
 name: SMP-API
 version: '${project.version}'
-main: net.boredman.API
-api-version: 1.18
+main: quest.safecloud.API
+api-version: 1.20
 prefix: SMP-API
-authors: [ BoredManCodes, twisttaan ]
+authors: [ Wingdingderp, BoredManCodes, twisttaan ]
 softdepend:
   - 'DiscordSRV'
 description: A SMP API for exposing player information for Discord bots to use
-website: https://boredman.net
+website: https://safecloud.quest

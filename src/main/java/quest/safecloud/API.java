@@ -1,10 +1,12 @@
-package net.boredman;
+package quest.safecloud;
 
 import express.Express;
-import net.boredman.events.QuitEvent;
+import github.scarsz.discordsrv.objects.managers.AccountLinkManager;
+import quest.safecloud.events.QuitEvent;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+
 
 public class API extends JavaPlugin implements Listener {
     private static API plugin;
