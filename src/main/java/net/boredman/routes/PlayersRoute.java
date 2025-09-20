@@ -34,7 +34,6 @@ public class PlayersRoute {
             }
 
             if (secret.equals(req.getHeader("secret").get(0))) {
-                // ✅ Use the plugin's data folder instead of guessing paths
                 File dataFolder = new File(api.getPlugin(api.class).getDataFolder(), "playerdata");
                 if (!dataFolder.exists() && !dataFolder.mkdirs()) {
                     api.getPlugin(api.class).getLogger().severe("Could not create playerdata folder at " + dataFolder.getAbsolutePath());

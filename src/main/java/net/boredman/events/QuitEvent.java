@@ -21,15 +21,18 @@ public class QuitEvent implements Listener {
     public void playerQuitEvent(PlayerQuitEvent event) throws IOException {
         boolean debug = api.getPlugin(api.class).getConfig().getBoolean("debug");
         if (debug) {
-            System.out.println(event.getPlayer().getName().toString() + " left the server, saving their player data.");
+            System.out.println(event.getPlayer().getName() + " left the server, saving their player data.");
         }
-        File dir = new File(api.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll("%20", " "));
-        File plugins = new File(dir.getParentFile().getPath());
-        String playerDataFolder = plugins + "\\SMP-API\\playerdata\\";
-        if (!Files.exists(Path.of(playerDataFolder))) {
-            Files.createDirectory(Path.of(playerDataFolder));
+
+        // Ensure playerdata folder exists
+        File dataFolder = new File(api.getPlugin(api.class).getDataFolder(), "playerdata");
+        if (!dataFolder.exists() && !dataFolder.mkdirs()) {
+            api.getPlugin(api.class).getLogger().severe("Could not create playerdata folder at " + dataFolder.getAbsolutePath());
         }
-        String filename =  playerDataFolder + event.getPlayer().getName() + ".json";
+
+        // Build player JSON file path safely
+        File playerFile = new File(dataFolder, event.getPlayer().getName() + ".json");
+
         String username = event.getPlayer().getName();
         JSONObject obj = new JSONObject();
         Player player = getPlayer(username);
@@ -66,7 +69,7 @@ public class QuitEvent implements Listener {
             location = player.getLocation().toString();
             arrOfLocation = location.split(",");
             obj.put((Object) "location", (Object) (arrOfLocation[1] + "," + arrOfLocation[2] + "," + arrOfLocation[3]));
-            Files.write(Paths.get(filename), obj.toJSONString().getBytes());
+            Files.writeString(playerFile.toPath(), obj.toJSONString());
             if (debug) {
                 api.getPlugin(api.class).getLogger().info("Saved " + event.getPlayer().getName() + "'s player data");
             }
