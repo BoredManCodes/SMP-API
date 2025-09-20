@@ -1,14 +1,11 @@
 package net.boredman.routes;
 
 import express.Express;
-import express.utils.Status;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.User;
 import github.scarsz.discordsrv.util.DiscordUtil;
-import net.boredman.API;
+import net.boredman.api;
 import org.bukkit.OfflinePlayer;
 import org.json.simple.JSONObject;
-
-import java.util.UUID;
 
 import static github.scarsz.discordsrv.DiscordSRV.getPlugin;
 import static org.bukkit.Bukkit.getOfflinePlayer;
@@ -17,8 +14,8 @@ public class DiscordRoute {
     public DiscordRoute(Express app) {
 
         // Read config
-        boolean debug = API.getPlugin(API.class).getConfig().getBoolean("debug");
-        String secret = API.getPlugin(API.class).getConfig().getString("secret");
+        boolean debug = api.getPlugin(api.class).getConfig().getBoolean("debug");
+        String secret = api.getPlugin(api.class).getConfig().getString("secret");
 
         // Lookup Discord via username
         app.get("/discord/name/:username", (req, res) -> {
@@ -27,14 +24,14 @@ public class DiscordRoute {
             final String discordId = getPlugin().getAccountLinkManager().getDiscordId(player.getUniqueId());
             final JSONObject obj = new JSONObject();
             if (debug) {
-                API.getPlugin(API.class).getLogger().info("A request was made to access " +
+                api.getPlugin(api.class).getLogger().info("A request was made to access " +
                         req.getParams().get("username") + "'s Discord data");
             }
             if (!secret.equals(req.getHeader("secret").get(0))) {
                 obj.put("error", true);
                 obj.put("message", "You are not authorised to access this resource");
                 res.send(obj.toJSONString());
-                API.getPlugin(API.class).getLogger().warning("A request to access Discord info from " + req.getIp() +
+                api.getPlugin(api.class).getLogger().warning("A request to access Discord info from " + req.getIp() +
                         " was rejected as they did not pass the correct secret in the header");
                 return;
             } else {
@@ -71,14 +68,14 @@ public class DiscordRoute {
             final String discordId = getPlugin().getAccountLinkManager().getDiscordId(player.getUniqueId());
             final JSONObject obj = new JSONObject();
             if (debug) {
-                API.getPlugin(API.class).getLogger().info("A request was made to access " +
+                api.getPlugin(api.class).getLogger().info("A request was made to access " +
                         req.getParams().get("id") + "'s Discord data");
             }
             if (!secret.equals(req.getHeader("secret").get(0))) {
                 obj.put("error", true);
                 obj.put("message", "You are not authorised to access this resource");
                 res.send(obj.toJSONString());
-                API.getPlugin(API.class).getLogger().warning("A request to access Discord info from " + req.getIp() +
+                api.getPlugin(api.class).getLogger().warning("A request to access Discord info from " + req.getIp() +
                         " was rejected as they did not pass the correct secret in the header");
             } else {
                 if (discordId == null) {

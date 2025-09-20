@@ -1,6 +1,6 @@
 package net.boredman.events;
 
-import net.boredman.API;
+import net.boredman.api;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,11 +19,11 @@ import static org.bukkit.Bukkit.getPlayer;
 public class QuitEvent implements Listener {
     @EventHandler
     public void playerQuitEvent(PlayerQuitEvent event) throws IOException {
-        boolean debug = API.getPlugin(API.class).getConfig().getBoolean("debug");
+        boolean debug = api.getPlugin(api.class).getConfig().getBoolean("debug");
         if (debug) {
             System.out.println(event.getPlayer().getName().toString() + " left the server, saving their player data.");
         }
-        File dir = new File(API.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll("%20", " "));
+        File dir = new File(api.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll("%20", " "));
         File plugins = new File(dir.getParentFile().getPath());
         String playerDataFolder = plugins + "\\SMP-API\\playerdata\\";
         if (!Files.exists(Path.of(playerDataFolder))) {
@@ -68,11 +68,11 @@ public class QuitEvent implements Listener {
             obj.put((Object) "location", (Object) (arrOfLocation[1] + "," + arrOfLocation[2] + "," + arrOfLocation[3]));
             Files.write(Paths.get(filename), obj.toJSONString().getBytes());
             if (debug) {
-                API.getPlugin(API.class).getLogger().info("Saved " + event.getPlayer().getName() + "'s player data");
+                api.getPlugin(api.class).getLogger().info("Saved " + event.getPlayer().getName() + "'s player data");
             }
         } catch (Exception e) {
-            API.getPlugin(API.class).getLogger().severe("Ran into an error trying to save player data");
-            API.getPlugin(API.class).getLogger().severe(String.valueOf(e));
+            api.getPlugin(api.class).getLogger().severe("Ran into an error trying to save player data");
+            api.getPlugin(api.class).getLogger().severe(String.valueOf(e));
         }
     }
 }

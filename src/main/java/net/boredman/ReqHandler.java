@@ -1,15 +1,13 @@
 package net.boredman;
 
 import express.Express;
-import express.ExpressListener;
 import net.boredman.routes.DiscordRoute;
 import net.boredman.routes.PlayersRoute;
-import org.bukkit.plugin.Plugin;
 
 public class ReqHandler {
 
     public ReqHandler(Express app) {
-        int port = API.getPlugin(API.class).getConfig().getInt("port");
+        int port = api.getPlugin(api.class).getConfig().getInt("port");
         new PlayersRoute(app);
         new DiscordRoute(app);
         app.get("/", (req, res) -> {

@@ -1,6 +1,6 @@
 name: SMP-API
 version: '${project.version}'
-main: net.boredman.API
+main: net.boredman.api
 api-version: 1.18
 prefix: SMP-API
 authors: [ BoredManCodes, twisttaan ]

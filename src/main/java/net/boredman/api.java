@@ -6,8 +6,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class API extends JavaPlugin implements Listener {
-    private static API plugin;
+public class api extends JavaPlugin implements Listener {
+    private static api plugin;
     final FileConfiguration config = getConfig();
 
     public static Express getApp() {
